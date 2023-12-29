@@ -55,6 +55,7 @@ export function useOnDraw(onDraw) {
       if (mouseMoveListenerRef.current) {
         window.removeEventListener("mousemove", mouseMoveListenerRef.current);
       }
+
       if (mouseUpListenerRef.current) {
         window.removeEventListener("mouseup", mouseUpListenerRef.current);
       }
@@ -66,6 +67,7 @@ export function useOnDraw(onDraw) {
   }, [onDraw]);
 
   return {
+    canvasRef,
     setCanvasRef,
     onCanvasMouseDown,
   };
