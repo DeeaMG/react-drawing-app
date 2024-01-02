@@ -1,10 +1,22 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { SketchPicker } from "react-color";
 import { useOnDraw } from "../Hooks";
 import "./Canvas.css";
 
-const Canvas = ({ width, height, color }) => {
+const Canvas = ({ width, height }) => {
   const { canvasRef, setCanvasRef, onCanvasMouseDown, saveCurrentState, undoLast } =
     useOnDraw(onDraw);
+
+  const [brushSize, setBrushSize] = useState(5);
+  const [color, setColor] = useState("#000000");
+
+  const handleColorChange = (color) => {
+    setColor(color.hex);
+  };
+
+  const handleBrushSizeChange = (event) => {
+    setBrushSize(event.target.value); // Update brush size from input
+  };
 
   const initializeCanvas = () => {
     const canvas = canvasRef.current;
@@ -18,7 +30,7 @@ const Canvas = ({ width, height, color }) => {
       saveCurrentState(); // Save state at the start of a new stroke
     }
 
-    drawLine(prevPoint, point, ctx, color, 5);
+    drawLine(prevPoint, point, ctx, color, brushSize);
   }
 
   function drawLine(start, end, ctx, color, width) {
@@ -32,7 +44,7 @@ const Canvas = ({ width, height, color }) => {
 
     ctx.fillStyle = color;
     ctx.beginPath();
-    ctx.arc(start.x, start.y, 2, 0, 2 * Math.PI);
+    ctx.arc(start.x, start.y, width / 2, 0, 2 * Math.PI);
     ctx.fill();
   }
 
@@ -55,23 +67,39 @@ const Canvas = ({ width, height, color }) => {
   }, []);
 
   return (
-    <>
-      <canvas
-        width={width}
-        height={height}
-        onMouseDown={onCanvasMouseDown}
-        style={canvasStyle}
-        ref={setCanvasRef}
-      />
-      <div className="buttons-container">
-        <button onClick={saveCanvas} className="button button-save">
-          Save Image
-        </button>
-        <button onClick={undoLast} className="button button-undo">
-          Undo
-        </button>
+    <div className="canvas-container">
+      <div className="left-container">
+        <SketchPicker color={color} onChangeComplete={handleColorChange} />
+        <div className="brushSize-container">
+          <label htmlFor="brushSize">Brush Size:</label>
+          <input
+            id="brushSize"
+            type="range"
+            min="1"
+            max="20"
+            value={brushSize}
+            onChange={handleBrushSizeChange}
+          />
+        </div>
       </div>
-    </>
+      <div className="right-container">
+        <canvas
+          width={width}
+          height={height}
+          onMouseDown={onCanvasMouseDown}
+          style={canvasStyle}
+          ref={setCanvasRef}
+        />
+        <div className="buttons-container">
+          <button onClick={saveCanvas} className="button button-save">
+            Save Image
+          </button>
+          <button onClick={undoLast} className="button button-undo">
+            Undo
+          </button>
+        </div>
+      </div>
+    </div>
   );
 };
 

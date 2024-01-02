@@ -1,3 +1,58 @@
+.canvas-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.right-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.left-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 5rem;
+}
+
+.brushSize-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+  color: rgb(41, 41, 41);
+}
+
+.brushSize-container input::-webkit-slider-runnable-track {
+  background-color: rgb(255, 255, 255);
+  border: 1px solid rgb(197, 197, 197);
+  border-radius: 10px;
+  padding: 0.1rem;
+}
+
+.brushSize-container input::-webkit-slider-thumb {
+  box-shadow: 1px 1px 1px #000031;
+  border: 1px solid #00001e;
+  height: 26px;
+  width: 26px;
+  border-radius: 15px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+.brushSize-container input::-ms-thumb {
+  margin-top: 1px;
+  box-shadow: 1px 1px 1px #000031;
+  border: 1px solid #00001e;
+  height: 26px;
+  width: 26px;
+  border-radius: 15px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
 .buttons-container {
   width: 700px;
   display: flex;
