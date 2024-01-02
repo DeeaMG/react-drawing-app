@@ -53,6 +53,7 @@ export function useOnDraw(onDraw) {
         return null;
       }
     }
+
     function initMouseMoveListener() {
       const mouseMoveListener = (e) => {
         if (isDrawingRef.current && canvasRef.current) {
