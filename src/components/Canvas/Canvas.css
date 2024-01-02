@@ -33,7 +33,6 @@
 }
 
 .brushSize-container input::-webkit-slider-thumb {
-  box-shadow: 1px 1px 1px #000031;
   border: 1px solid #00001e;
   height: 26px;
   width: 26px;
