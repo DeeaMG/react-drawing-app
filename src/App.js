@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
 import { SketchPicker } from "react-color";
-import Canvas from "./components/Canvas";
+import Canvas from "./components/Canvas/Canvas";
 
 function App() {
   const [color, setColor] = useState("#000000");

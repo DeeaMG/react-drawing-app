@@ -1,0 +1,31 @@
+.buttons-container {
+  width: 700px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.button {
+  border: 1px solid #919191;
+  border-radius: 5px;
+  width: 7rem;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  color: rgb(235, 235, 235);
+  cursor: pointer;
+}
+
+.button-save {
+  background-color: #013d05dc;
+}
+
+.button-save:hover {
+  background-color: #015e08dc;
+}
+
+.button-undo {
+  background-color: #640000dc;
+}
+
+.button-undo:hover {
+  background-color: #8f0101dc;
+}

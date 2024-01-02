@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
-import { useOnDraw } from "./Hooks";
+import { useOnDraw } from "../Hooks";
+import "./Canvas.css";
 
 const Canvas = ({ width, height, color }) => {
-  const { canvasRef, setCanvasRef, onCanvasMouseDown } = useOnDraw(onDraw);
+  const { canvasRef, setCanvasRef, onCanvasMouseDown, saveCurrentState, undoLast } =
+    useOnDraw(onDraw);
 
   const initializeCanvas = () => {
     const canvas = canvasRef.current;
@@ -12,6 +14,10 @@ const Canvas = ({ width, height, color }) => {
   };
 
   function onDraw(ctx, point, prevPoint) {
+    if (!prevPoint) {
+      saveCurrentState(); // Save state at the start of a new stroke
+    }
+
     drawLine(prevPoint, point, ctx, color, 5);
   }
 
@@ -35,7 +41,7 @@ const Canvas = ({ width, height, color }) => {
       const canvas = canvasRef.current;
       const image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
       const link = document.createElement("a");
-      link.download = "my-drawing.png";
+      link.download = "drawing.png";
       link.href = image;
       link.click();
     } else {
@@ -57,9 +63,14 @@ const Canvas = ({ width, height, color }) => {
         style={canvasStyle}
         ref={setCanvasRef}
       />
-      <button onClick={saveCanvas} style={{ marginTop: "10px" }}>
-        Save Image
-      </button>
+      <div className="buttons-container">
+        <button onClick={saveCanvas} className="button button-save">
+          Save Image
+        </button>
+        <button onClick={undoLast} className="button button-undo">
+          Undo
+        </button>
+      </div>
     </>
   );
 };
@@ -68,4 +79,6 @@ export default Canvas;
 
 const canvasStyle = {
   border: "1px solid black",
+  marginTop: "1rem",
+  marginBottom: "1rem",
 };
